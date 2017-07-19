@@ -1,0 +1,4 @@
+.DS_Store
+plugged/
+*.pyc
+.netrwhist
