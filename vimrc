@@ -43,7 +43,7 @@ let g:ycm_key_invoke_completion = '<C-a>'
 nmap gd :YcmCompleter GoToDefinition <CR>
 
 "离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
 
 "airline config
 let g:airline#extensions#tabline#enabled = 0
@@ -63,6 +63,7 @@ let g:DoxygenToolkit_authorName="weicheng <tomwei7@163.com>"
 
 let g:syntastic_python_flake8_args="--ignore=E501"
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_go_checkers=['golint']
 "let py_version=system("python --version")
 "if has('python')
 "    if matchstr(py_version, 'Python 2') != ''
@@ -86,6 +87,7 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 "let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
+let g:go_fmt_autosave = 0
 
 "markdown
 let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
@@ -145,9 +147,9 @@ autocmd Filetype python setlocal colorcolumn=81
 autocmd Filetype php setlocal colorcolumn=121
 
 "模板
-autocmd BufNewFile *.py 0r ~/.vim/template/simple.py
-autocmd BufNewFile *.php 0r ~/.vim/template/simple.php 
-autocmd BufNewFile *.sh 0r ~/.vim/template/simple.sh
+autocmd BufNewFile *.py silent! 0r ~/.vim/template/simple.py 
+autocmd BufNewFile *.php silent! 0r ~/.vim/template/simple.php 
+autocmd BufNewFile *.sh silent! 0r ~/.vim/template/simple.sh 
 
 "快捷键设置
 map <F8>  :set list!<CR>
