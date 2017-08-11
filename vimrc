@@ -13,10 +13,10 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'godlygeek/tabular'
-"Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-multiple-cursors'
 
 Plug 'Valloric/YouCompleteMe'
-Plug 'mattn/emmet-vim', {'for': ['html', 'css']}
+Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
 "Plug 'w0rp/ale'
 Plug 'vim-syntastic/syntastic'
 Plug 'DoxygenToolkit.vim', {'for': ['c', 'cpp']}
@@ -64,6 +64,7 @@ let g:DoxygenToolkit_authorName="weicheng <tomwei7@163.com>"
 let g:syntastic_python_flake8_args="--ignore=E501"
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_go_checkers=['golint']
+let g:syntastic_enable_html_checker=0
 "let py_version=system("python --version")
 "if has('python')
 "    if matchstr(py_version, 'Python 2') != ''
@@ -87,7 +88,8 @@ let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
 "let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
-let g:go_fmt_autosave = 0
+let g:go_fmt_autosave = 1
+let g:go_def_mapping_enabled = 1
 
 "markdown
 let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
@@ -95,8 +97,15 @@ let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
 "NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
+"terryma/vim-multiple-cursors
+let g:multi_cursor_next_key='<C-m>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
 "主题设置
 silent! colorscheme solarized
+"colorscheme desert
 set background=dark
 let g:solarized_termcolors=256
 
@@ -121,8 +130,8 @@ set fileencodings=utf-8,gb18030,gbk,gb2312,big5
 "高亮当前行
 set cursorline
 highlight clear SignColumn
-hi CursorLine   cterm=NONE ctermbg=black ctermfg=NONE guibg=black guifg=NONE
-hi Normal ctermbg=NONE
+"hi CursorLine   cterm=NONE ctermbg=black ctermfg=NONE guibg=black guifg=NONE
+"hi Normal ctermbg=NONE
 "自动补全括号
 "inoremap (  ()<left>
 "inoremap [ []<left>
@@ -135,6 +144,7 @@ set guifont=Monaco:h13
 
 "不同文件缩进
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
+autocmd Filetype htmldjango setlocal ts=2 sts=2 sw=2
 autocmd Filetype css setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
 autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
