@@ -1,1 +1,0 @@
-/Users/weicheng/.vim/vimrc
