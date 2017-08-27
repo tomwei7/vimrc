@@ -15,9 +15,12 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
 
+"git
+Plug 'tpope/vim-fugitive'
+
 Plug 'Valloric/YouCompleteMe'
 Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
-"Plug 'w0rp/ale'
+
 Plug 'vim-syntastic/syntastic'
 Plug 'DoxygenToolkit.vim', {'for': ['c', 'cpp']}
 Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
@@ -31,6 +34,9 @@ Plug 'fatih/vim-go', {'for': 'go'}
 "javascript
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'posva/vim-vue', {'for': 'vue'}
+
+"toml
+Plug 'cespare/vim-toml', {'for': 'toml'}
 " Initialize Plug system
 call plug#end()
 
