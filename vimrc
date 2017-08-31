@@ -14,6 +14,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
+"code snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 "git
 Plug 'tpope/vim-fugitive'
@@ -35,8 +38,12 @@ Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'posva/vim-vue', {'for': 'vue'}
 
+"cmake
+Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 "toml
 Plug 'cespare/vim-toml', {'for': 'toml'}
+
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 " Initialize Plug system
 call plug#end()
 
@@ -45,11 +52,19 @@ call plug#end()
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_python_binary_path = 'python'
 let g:ycm_key_invoke_completion = '<C-a>'
+let g:ycm_confirm_extra_conf = 0
 
 nmap gd :YcmCompleter GoToDefinition <CR>
 
 "离开插入模式后自动关闭预览窗口
 "autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
+
+" UltiSnips Config
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-x>"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 "airline config
 let g:airline#extensions#tabline#enabled = 0
@@ -191,3 +206,5 @@ au Filetype go map <buffer> <F5> :!time go run % <CR>
 au Filetype sh map <buffer> <F5> :!bash % <CR>
 
 command JsonFormat execute "%!python -m json.tool"
+" 解决有时候打开文件需要按 enter 的问题 http://vimhelp.appspot.com/options.txt.html#%27shortmess%27
+set shortmess=Ot
