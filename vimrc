@@ -14,6 +14,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'kien/ctrlp.vim'
+
 "code snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -94,6 +96,19 @@ let g:syntastic_enable_html_checker=0
 "        let g:syntastic_python_flake8_exec="/usr/local/bin/python3 -m flake8"
 "    endif
 "endif
+"
+" ctrlp
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_regexp = 1
 
 " 清除macvim滚动条
 if has('gui')
