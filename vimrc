@@ -52,7 +52,11 @@ call plug#end()
 "Plugin Config start
 "YouCompleteMe Config
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_python_binary_path = 'python'
+if !empty($VIRTUAL_ENV)
+    let g:ycm_python_binary_path = 'python'
+else
+    let g:ycm_python_binary_path = 'python3'
+endif
 let g:ycm_key_invoke_completion = '<C-a>'
 let g:ycm_confirm_extra_conf = 0
 
@@ -223,3 +227,6 @@ au Filetype sh map <buffer> <F5> :!bash % <CR>
 command JsonFormat execute "%!python -m json.tool"
 " 解决有时候打开文件需要按 enter 的问题 http://vimhelp.appspot.com/options.txt.html#%27shortmess%27
 set shortmess=Ot
+" In the quickfix window, <CR> is used to jump to the error under the
+" cursor, so undefine the mapping there.
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
