@@ -24,6 +24,7 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 
 Plug 'Valloric/YouCompleteMe'
+Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
 
 Plug 'vim-syntastic/syntastic'
@@ -46,9 +47,12 @@ Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'majutsushi/tagbar'
 " Initialize Plug system
 call plug#end()
 
+"tagbar config
+let g:tagbar_width = 30
 "Plugin Config start
 "YouCompleteMe Config
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
@@ -200,6 +204,7 @@ autocmd Filetype php setlocal colorcolumn=121
 autocmd BufNewFile *.py silent! 0r ~/.vim/template/simple.py 
 autocmd BufNewFile *.php silent! 0r ~/.vim/template/simple.php 
 autocmd BufNewFile *.sh silent! 0r ~/.vim/template/simple.sh 
+autocmd BufNewFile *.go silent! 0r ~/.vim/template/simple.go
 
 "快捷键设置
 map <F8>  :set list!<CR>
@@ -230,3 +235,9 @@ set shortmess=Ot
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+
+"test script
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_use_ultisnips_completer = 1
+let g:ycm_seed_identifiers_with_syntax = 1
