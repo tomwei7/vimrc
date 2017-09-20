@@ -28,7 +28,7 @@ Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
 
 Plug 'vim-syntastic/syntastic'
-Plug 'DoxygenToolkit.vim', {'for': ['c', 'cpp']}
+Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp']}
 Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
