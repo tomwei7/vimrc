@@ -1,3 +1,4 @@
+syntax enable
 set nocompatible              " be iMproved, required
 set shortmess=atI
 set backspace=indent,eol,start
@@ -8,7 +9,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-Plug 'altercation/vim-colors-solarized'
 " NERDtree: 文件浏览器
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -19,6 +19,10 @@ Plug 'kien/ctrlp.vim'
 "code snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
+"colorschemes
+"Plug 'flazz/vim-colorschemes'
+Plug 'tomasr/molokai'
 
 "git
 Plug 'tpope/vim-fugitive'
@@ -122,6 +126,15 @@ let g:ctrlp_regexp = 1
 if has('gui')
     set guioptions-=gmrL
 endif
+"let g:solarized_termcolors=256
+"theme config
+"colorscheme desert
+let g:molokai_original = 1
+let g:rehash256 = 1
+silent! colorscheme molokai
+"hack molokai
+hi PreProc cterm=bold
+
 
 "vim-go
 let g:go_highlight_functions = 1
@@ -140,6 +153,7 @@ let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
 
 "NERDTree
 map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeIgnore=['__pycache__']
 
 "terryma/vim-multiple-cursors
 let g:multi_cursor_next_key='<C-m>'
@@ -147,11 +161,6 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
-"主题设置
-silent! colorscheme solarized
-"colorscheme desert
-set background=dark
-let g:solarized_termcolors=256
 
 "编辑器设置
 set nu
@@ -167,8 +176,6 @@ set nobackup
 set noswapfile
 "搜索忽略大小写
 set ignorecase
-"开启高亮
-syntax enable
 "编码支持
 set fileencodings=utf-8,gb18030,gbk,gb2312,big5
 "高亮当前行
@@ -183,8 +190,9 @@ highlight clear SignColumn
 "inoremap ' ''<left>
 "设置不可见字符
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+
 " gui
-set guifont=Monaco:h13
+set guifont=Menlo:h13
 
 "不同文件缩进
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
@@ -235,9 +243,3 @@ set shortmess=Ot
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-
-"test script
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_use_ultisnips_completer = 1
-let g:ycm_seed_identifiers_with_syntax = 1
