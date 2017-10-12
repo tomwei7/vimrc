@@ -1,4 +1,3 @@
-syntax enable
 set nocompatible              " be iMproved, required
 set shortmess=atI
 set backspace=indent,eol,start
@@ -126,14 +125,12 @@ let g:ctrlp_regexp = 1
 if has('gui')
     set guioptions-=gmrL
 endif
-"let g:solarized_termcolors=256
-"theme config
-"colorscheme desert
+
+hi PreProc cterm=bold
 let g:molokai_original = 1
 let g:rehash256 = 1
 silent! colorscheme molokai
-"hack molokai
-hi PreProc cterm=bold
+syntax enable
 
 
 "vim-go
@@ -146,7 +143,7 @@ let g:go_highlight_build_constraints = 1
 "let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 let g:go_fmt_autosave = 1
-let g:go_def_mapping_enabled = 1
+let g:go_def_mapping_enabled = 0
 
 "markdown
 let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
