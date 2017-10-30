@@ -9,8 +9,8 @@ Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 " NERDtree: 文件浏览器
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+"Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kien/ctrlp.vim'
@@ -20,14 +20,13 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 "colorschemes
-"Plug 'flazz/vim-colorschemes'
-Plug 'tomasr/molokai'
+Plug 'tomwei7/vim-colors-solarized'
 
 "git
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 Plug 'Valloric/YouCompleteMe'
-Plug 'tenfyzhong/CompleteParameter.vim'
 Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
 
 Plug 'vim-syntastic/syntastic'
@@ -37,12 +36,15 @@ Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 
 "golang
-Plug 'buoto/gotests-vim', {'for': 'go'}   "自动生成单元测试
+Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "自动生成单元测试
 Plug 'fatih/vim-go', {'for': 'go'}
 
 "javascript
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
 Plug 'posva/vim-vue', {'for': 'vue'}
+
+"Python
+Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
 
 "cmake
 Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
@@ -50,7 +52,9 @@ Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+
+Plug 'jiangmiao/auto-pairs'
 " Initialize Plug system
 call plug#end()
 
@@ -70,7 +74,7 @@ let g:ycm_confirm_extra_conf = 0
 nmap gd :YcmCompleter GoToDefinition <CR>
 
 "离开插入模式后自动关闭预览窗口
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
 
 " UltiSnips Config
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -126,10 +130,13 @@ if has('gui')
     set guioptions-=gmrL
 endif
 
-hi PreProc cterm=bold
-let g:molokai_original = 1
-let g:rehash256 = 1
-silent! colorscheme molokai
+" molokai colorshema
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+"silent! colorscheme molokai
+
+set background=dark
+silent! colorscheme solarized
 syntax enable
 
 
@@ -172,24 +179,20 @@ set expandtab
 set nobackup
 set noswapfile
 "搜索忽略大小写
+set smartcase
 set ignorecase
+
 "编码支持
 set fileencodings=utf-8,gb18030,gbk,gb2312,big5
 "高亮当前行
 set cursorline
 highlight clear SignColumn
-"hi CursorLine   cterm=NONE ctermbg=black ctermfg=NONE guibg=black guifg=NONE
-"hi Normal ctermbg=NONE
-"自动补全括号
-"inoremap (  ()<left>
-"inoremap [ []<left>
-"inoremap " ""<left>
-"inoremap ' ''<left>
+
 "设置不可见字符
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 " gui
-set guifont=Menlo:h13
+set guifont=Menlo:h12
 
 "不同文件缩进
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
@@ -203,7 +206,6 @@ autocmd Filetype vue setlocal ts=2 sts=2 sw=2
 
 "每行最大字符数
 autocmd Filetype python setlocal colorcolumn=81
-autocmd Filetype php setlocal colorcolumn=121
 
 "模板
 autocmd BufNewFile *.py silent! 0r ~/.vim/template/simple.py 
