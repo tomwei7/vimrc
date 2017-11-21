@@ -51,10 +51,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 " YcmCompleter help
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
 
-"colorschemes
-if has('gui_running')
-    Plug 'tomwei7/vim-colors-solarized'
-endif
+Plug 'morhetz/gruvbox'
 " Initialize Plug system
 call plug#end()
 
@@ -88,7 +85,7 @@ let g:UltiSnipsEditSplit="vertical"
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme = 'base16_colors'
+let g:airline_theme = 'gruvbox'
 set laststatus=2
 set t_Co=256
 
@@ -147,22 +144,16 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 " UI config
-
-if has('gui_running')
-    set guifont=Menlo:h12
-    set guioptions-=gmrL
-    set background=dark
-    silent! colorscheme solarized
-else
-    let g:molokai_original = 1
-    let g:rehash256 = 1
-    silent! colorscheme molokai
+if $TERM == 'xterm-256color-italic'
+    set termguicolors
+    let g:gruvbox_italic=1
 endif
-
+set background=dark
+silent! colorscheme gruvbox
 syntax enable
-
-if !has('gui_running')
-    hi Normal ctermbg=none
+" 清除macvim滚动条
+if has('gui')
+    set guioptions-=gmrL
 endif
 
 "编辑器设置
