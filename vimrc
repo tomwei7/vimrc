@@ -144,17 +144,23 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 " UI config
-if $TERM == 'xterm-256color-italic'
-    set termguicolors
-    let g:gruvbox_italic=1
+" 清除macvim滚动条
+if has('gui_running')
+    set guioptions-=gmrL
+else
+    if $ENABLE_ITALIC == 'true'
+        let g:gruvbox_italic=1
+    endif
 endif
+
 set background=dark
 silent! colorscheme gruvbox
 syntax enable
-" 清除macvim滚动条
-if has('gui')
-    set guioptions-=gmrL
-endif
+" reset background color
+hi Normal ctermbg=none
+" 高亮当前行
+set cursorline
+highlight clear SignColumn
 
 "编辑器设置
 set nu
@@ -174,22 +180,12 @@ set ignorecase
 
 " 编码支持
 set fileencodings=utf-8,gb18030,gbk,gb2312,big5
-" 高亮当前行
-set cursorline
-highlight clear SignColumn
 
 " 设置不可见字符
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 " 不同文件缩进
-autocmd Filetype html setlocal ts=2 sts=2 sw=2
-autocmd Filetype htmldjango setlocal ts=2 sts=2 sw=2
-autocmd Filetype css setlocal ts=2 sts=2 sw=2
-autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
-autocmd Filetype javascript setlocal ts=2 sts=2 sw=2
-autocmd Filetype json setlocal ts=2 sts=2 sw=2
-autocmd Filetype yaml setlocal ts=2 sts=2 sw=2
-autocmd Filetype vue setlocal ts=2 sts=2 sw=2
+autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue  setlocal ts=2 sts=2 sw=2
 
 " 每行最大字符数
 autocmd Filetype python setlocal colorcolumn=81
@@ -202,7 +198,6 @@ autocmd BufNewFile *.go silent! 0r ~/.vim/template/simple.go
 
 " 快捷键设置
 map <F8>  :set list!<CR>
-"nmap gl  :set list!<CR>
 map <F9>  :bp<CR>
 map <F10> :bn<CR>
 
