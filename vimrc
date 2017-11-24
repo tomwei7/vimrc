@@ -116,7 +116,18 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 let g:ctrlp_regexp = 1
 
 " vim-go config
@@ -153,6 +164,7 @@ else
     endif
 endif
 
+set guifont=Menlo:h12
 set background=dark
 silent! colorscheme gruvbox
 syntax enable
@@ -225,3 +237,6 @@ set shortmess=Ot
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+
+" ignore venv and vendor
+set wildignore+=venv/**,vendor/**
