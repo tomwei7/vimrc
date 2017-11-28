@@ -130,6 +130,13 @@ endif
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 let g:ctrlp_regexp = 1
 
+" vim beakpoint format to clipboard
+function CopyAsBreakpoint()
+    let s:pos=expand('%:p') . ':' . line('.')
+    call setreg('+y', s:pos)
+endfunction
+command CopyAsBreak call CopyAsBreakpoint()
+
 " vim-go config
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
