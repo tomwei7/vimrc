@@ -101,6 +101,8 @@ let g:DoxygenToolkit_authorName="weicheng <tomwei7@163.com>"
 let g:ale_linters = {
             \   'python': ['flake8'],
             \   'go': ['golint'],
+            \   'c': [],
+            \   'cpp': [],
             \}
 let g:ale_python_flake8_options="--ignore=E501"
 let g:ale_lint_on_text_changed = 'never'
