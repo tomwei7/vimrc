@@ -38,7 +38,7 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 
 " for golang
 Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
-Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'fatih/vim-go', {'for': 'go', 'commit': '456186f'}
 
 " for python
 Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
@@ -51,6 +51,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 " YcmCompleter help
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
 
+" gruvbox theme
 Plug 'morhetz/gruvbox'
 " Initialize Plug system
 call plug#end()
