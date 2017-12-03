@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ascenator/L9', {'name': 'newL9'}
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeFind'}
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kien/ctrlp.vim'
@@ -155,7 +155,17 @@ let g:go_def_mapping_enabled = 0
 let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
 
 " NERDTree config
-map <C-n> :NERDTreeToggle<CR>
+function! NERDTreeToggleInCurDir()
+  " If NERDTree is open in the current buffer
+  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+    exe ":NERDTreeClose"
+  else
+    exe ":NERDTreeFind"
+  endif
+endfunction
+" Open NERDTree in the directory of the current file (or /home if no file is open)
+nmap <silent> <C-n> :call NERDTreeToggleInCurDir()<cr>
+"map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]']
 
 " terryma/vim-multiple-cursors config
