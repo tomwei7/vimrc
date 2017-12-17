@@ -5,18 +5,18 @@ set backspace=indent,eol,start
 call plug#begin('~/.vim/plugged')
 " common plugin
 Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'ascenator/L9', {'name': 'newL9'}
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeFind'}
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kien/ctrlp.vim'
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips', {'on': []}
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'on': 'YcmCompleter'}
 Plug 'w0rp/ale'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
@@ -38,7 +38,7 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 
 " for golang
 Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
-Plug 'fatih/vim-go', {'for': 'go', 'commit': '456186f'}
+Plug 'fatih/vim-go', {'for': 'go'}
 
 " for python
 Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
@@ -55,6 +55,12 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
 Plug 'morhetz/gruvbox'
 " Initialize Plug system
 call plug#end()
+
+augroup load_us_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                     \| autocmd! load_us_ycm
+augroup END
 
 "tagbar config
 let g:tagbar_width = 30
@@ -101,13 +107,15 @@ let g:DoxygenToolkit_authorName="weicheng <tomwei7@163.com>"
 " ale config
 let g:ale_linters = {
             \   'python': ['flake8'],
-            \   'go': ['golint'],
+            \   'go': ['golint', 'go build'],
             \   'c': [],
             \   'cpp': [],
             \}
 let g:ale_python_flake8_options="--ignore=E501"
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " ctrlp
 let g:ctrlp_map = '<c-p>'
@@ -119,6 +127,7 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
@@ -155,17 +164,18 @@ let g:go_def_mapping_enabled = 0
 let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
 
 " NERDTree config
-function! NERDTreeToggleInCurDir()
-  " If NERDTree is open in the current buffer
-  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-    exe ":NERDTreeClose"
-  else
-    exe ":NERDTreeFind"
-  endif
-endfunction
+"function! NERDTreeToggleInCurDir()
+"  " If NERDTree is open in the current buffer
+"  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+"    exe ":NERDTreeClose"
+"  else
+"    exe ":NERDTreeFind"
+"  endif
+"endfunction
 " Open NERDTree in the directory of the current file (or /home if no file is open)
-nmap <silent> <C-n> :call NERDTreeToggleInCurDir()<cr>
-"map <C-n> :NERDTreeToggle<CR>
+"nmap <silent> <C-n> :call NERDTreeToggleInCurDir()<cr>
+
+map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]']
 
 " terryma/vim-multiple-cursors config
@@ -177,6 +187,7 @@ let g:multi_cursor_quit_key='<Esc>'
 " UI config
 " 清除macvim滚动条
 if has('gui_running')
+    set guifont=Menlo:h12
     set guioptions-=gmrL
 else
     if $ENABLE_ITALIC == 'true'
@@ -184,12 +195,11 @@ else
     endif
 endif
 
-set guifont=Menlo:h12
 set background=dark
 silent! colorscheme gruvbox
 syntax enable
 " reset background color
-hi Normal ctermbg=none
+" hi Normal ctermbg=none
 " 高亮当前行
 set cursorline
 highlight clear SignColumn
@@ -260,3 +270,9 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 " ignore venv and vendor
 set wildignore+=venv/**,vendor/**
+
+if $TERM_PROGRAM == 'iTerm.app'
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
