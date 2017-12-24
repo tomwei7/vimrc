@@ -11,12 +11,12 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kien/ctrlp.vim'
-Plug 'SirVer/ultisnips', {'on': []}
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'Valloric/YouCompleteMe', {'on': 'YcmCompleter'}
+Plug 'Valloric/YouCompleteMe'
 Plug 'w0rp/ale'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
@@ -38,7 +38,7 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 
 " for golang
 Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
-Plug 'fatih/vim-go', {'for': 'go'}
+Plug 'fatih/vim-go', {'for': 'go', 'commit': '40e2e19'}
 
 " for python
 Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
@@ -55,12 +55,6 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
 Plug 'morhetz/gruvbox'
 " Initialize Plug system
 call plug#end()
-
-augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                     \| autocmd! load_us_ycm
-augroup END
 
 "tagbar config
 let g:tagbar_width = 30
@@ -116,6 +110,8 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
 
 " ctrlp
 let g:ctrlp_map = '<c-p>'
@@ -185,9 +181,9 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 " UI config
-" 清除macvim滚动条
 if has('gui_running')
     set guifont=Menlo:h12
+    " 清除macvim滚动条
     set guioptions-=gmrL
 else
     if $ENABLE_ITALIC == 'true'
