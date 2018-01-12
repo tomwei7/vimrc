@@ -5,7 +5,6 @@ set backspace=indent,eol,start
 call plug#begin('~/.vim/plugged')
 " common plugin
 Plug 'bling/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'godlygeek/tabular'
@@ -38,7 +37,7 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 
 " for golang
 Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
-Plug 'fatih/vim-go', {'for': 'go', 'commit': '40e2e19'}
+Plug 'fatih/vim-go', {'for': 'go'}
 
 " for python
 Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
@@ -87,6 +86,7 @@ let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_theme = 'gruvbox'
+let g:airline#extensions#cursormode#enabled = 0
 set laststatus=2
 set t_Co=256
 
@@ -155,6 +155,9 @@ let g:go_highlight_build_constraints = 1
 let g:go_list_type = "quickfix"
 let g:go_fmt_autosave = 1
 let g:go_def_mapping_enabled = 0
+
+" autopep8
+let g:autopep8_disable_show_diff = 1
 
 " markdown config
 let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
@@ -226,7 +229,7 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue  setlocal ts=2 sts=2 sw=2
 
 " 每行最大字符数
-autocmd Filetype python setlocal colorcolumn=81
+autocmd Filetype python setlocal colorcolumn=121
 
 " 模板
 autocmd BufNewFile *.py silent! 0r ~/.vim/template/simple.py 
@@ -267,8 +270,9 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " ignore venv and vendor
 set wildignore+=venv/**,vendor/**
 
-if $TERM_PROGRAM == 'iTerm.app'
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+" Change cursor shape between insert and normal mode in iTerm2.app
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
     let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
