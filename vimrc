@@ -10,14 +10,15 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kien/ctrlp.vim'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'Valloric/YouCompleteMe'
 Plug 'w0rp/ale'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
+" Load on nothing
+Plug 'SirVer/ultisnips', { 'on': [] }
+Plug 'Valloric/YouCompleteMe', { 'on': 'YcmCompleter' }
 
 " for front end
 Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
@@ -52,13 +53,20 @@ Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
 
 " gruvbox theme
 Plug 'morhetz/gruvbox'
+
 " Initialize Plug system
 call plug#end()
 
 "tagbar config
 let g:tagbar_width = 30
-"Plugin Config start
-"
+
+" YouCompleteMe lazy load
+augroup load_us_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                     \| autocmd! load_us_ycm
+augroup END
+
 "YouCompleteMe Config
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 if !empty($VIRTUAL_ENV)
