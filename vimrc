@@ -51,9 +51,7 @@ Plug 'cespare/vim-toml', {'for': 'toml'}
 " YcmCompleter help
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
 
-" gruvbox theme
-Plug 'morhetz/gruvbox'
-
+Plug 'altercation/vim-colors-solarized'
 " Initialize Plug system
 call plug#end()
 
@@ -93,10 +91,7 @@ let g:UltiSnipsEditSplit="vertical"
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme = 'gruvbox'
 let g:airline#extensions#cursormode#enabled = 0
-set laststatus=2
-set t_Co=256
 
 " doxygenToolkit.vim config
 let g:DoxygenToolkit_briefTag_pre="@Synopsis " 
@@ -192,21 +187,21 @@ let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 " UI config
+set laststatus=2
+set t_Co=256
 if has('gui_running')
     set guifont=Menlo:h12
     " 清除macvim滚动条
     set guioptions-=gmrL
-else
-    if $ENABLE_ITALIC == 'true'
-        let g:gruvbox_italic=1
-    endif
 endif
 
 set background=dark
-silent! colorscheme gruvbox
+
+silent! colorscheme solarized
 syntax enable
+
 " reset background color
-" hi Normal ctermbg=none
+"hi Normal ctermbg=none
 " 高亮当前行
 set cursorline
 highlight clear SignColumn
