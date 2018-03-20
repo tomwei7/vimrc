@@ -88,10 +88,11 @@ let g:UltiSnipsJumpBackwardTrigger="<c-x>"
 let g:UltiSnipsEditSplit="vertical"
 
 " airline config
-let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#cursormode#enabled = 0
+"let g:airline#extensions#tabline#enabled=0
+"let g:airline#extensions#tabline#left_sep=' '
+"let g:airline#extensions#tabline#left_alt_sep='|'
+"let g:airline#extensions#cursormode#enabled=0
+let g:airline_theme='solarized'
 
 " doxygenToolkit.vim config
 let g:DoxygenToolkit_briefTag_pre="@Synopsis " 
