@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " common plugin
 Plug 'bling/vim-airline'
 Plug 'ascenator/L9', {'name': 'newL9'}
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'kien/ctrlp.vim'
@@ -19,39 +19,32 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 " Load on nothing
 Plug 'SirVer/ultisnips', { 'on': [] }
 Plug 'Valloric/YouCompleteMe', { 'on': 'YcmCompleter' }
-
+" YcmCompleter help
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
 " for front end
 Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
-
 " for javascript
 Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-
 " for vue
 Plug 'posva/vim-vue', {'for': 'vue'}
-
 " for c, cpp
 Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp']}
 Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
-
 " for markdown
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-
 " for golang
 Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
 Plug 'fatih/vim-go', {'for': 'go'}
-
 " for python
 Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
-
 " for cmake
 Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 " for toml
 Plug 'cespare/vim-toml', {'for': 'toml'}
+" for glsl
+Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
 
-" YcmCompleter help
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
-
-Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 " Initialize Plug system
 call plug#end()
 
@@ -92,7 +85,7 @@ let g:UltiSnipsEditSplit="vertical"
 "let g:airline#extensions#tabline#left_sep=' '
 "let g:airline#extensions#tabline#left_alt_sep='|'
 "let g:airline#extensions#cursormode#enabled=0
-let g:airline_theme='solarized'
+let g:airline_theme='gruvbox'
 
 " doxygenToolkit.vim config
 let g:DoxygenToolkit_briefTag_pre="@Synopsis " 
@@ -114,8 +107,8 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
+"let g:ale_sign_error = '✘'
+"let g:ale_sign_warning = '⚠'
 
 " ctrlp
 let g:ctrlp_map = '<c-p>'
@@ -166,19 +159,8 @@ let g:autopep8_disable_show_diff = 1
 " markdown config
 let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
 
-" NERDTree config
-"function! NERDTreeToggleInCurDir()
-"  " If NERDTree is open in the current buffer
-"  if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
-"    exe ":NERDTreeClose"
-"  else
-"    exe ":NERDTreeFind"
-"  endif
-"endfunction
-" Open NERDTree in the directory of the current file (or /home if no file is open)
-"nmap <silent> <C-n> :call NERDTreeToggleInCurDir()<cr>
-
 map <C-n> :NERDTreeToggle<CR>
+command DFind :NERDTreeFind
 let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]']
 
 " terryma/vim-multiple-cursors config
@@ -198,7 +180,7 @@ endif
 
 set background=dark
 
-silent! colorscheme solarized
+silent! colorscheme gruvbox
 syntax enable
 
 " reset background color
@@ -280,3 +262,5 @@ if $TERM_PROGRAM =~ "iTerm"
     let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
     let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 endif
+autocmd BufNewFile,BufRead *.cl set filetype=opencl
+autocmd BufNewFile,BufRead *.vs,*.fs set ft=glsl
