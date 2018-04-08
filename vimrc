@@ -8,7 +8,7 @@ Plug 'bling/vim-airline'
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
-Plug 'terryma/vim-multiple-cursors'
+"Plug 'terryma/vim-multiple-cursors'
 Plug 'kien/ctrlp.vim'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
@@ -43,13 +43,13 @@ Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 " for glsl
 Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
-
-Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 " Initialize Plug system
 call plug#end()
 
 "tagbar config
-let g:tagbar_width = 30
+let g:tagbar_width=30
 
 " YouCompleteMe lazy load
 augroup load_us_ycm
@@ -59,14 +59,14 @@ augroup load_us_ycm
 augroup END
 
 "YouCompleteMe Config
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 if !empty($VIRTUAL_ENV)
-    let g:ycm_python_binary_path = 'python'
+    let g:ycm_python_binary_path='python'
 else
-    let g:ycm_python_binary_path = 'python3'
+    let g:ycm_python_binary_path='python3'
 endif
-let g:ycm_key_invoke_completion = '<C-a>'
-let g:ycm_confirm_extra_conf = 0
+let g:ycm_key_invoke_completion='<C-a>'
+let g:ycm_confirm_extra_conf=0
 
 nmap gd :YcmCompleter GoToDefinition <CR>
 
@@ -85,7 +85,8 @@ let g:UltiSnipsEditSplit="vertical"
 "let g:airline#extensions#tabline#left_sep=' '
 "let g:airline#extensions#tabline#left_alt_sep='|'
 "let g:airline#extensions#cursormode#enabled=0
-let g:airline_theme='gruvbox'
+let g:airline_theme='onedark'
+let g:airline_powerline_fonts=1
 
 " doxygenToolkit.vim config
 let g:DoxygenToolkit_briefTag_pre="@Synopsis " 
@@ -96,26 +97,26 @@ let g:DoxygenToolkit_blockFooter="----------------------------------------------
 let g:DoxygenToolkit_authorName="weicheng <tomwei7@163.com>" 
 
 " ale config
-let g:ale_linters = {
+let g:ale_linters={
             \   'python': ['flake8'],
             \   'go': ['golint', 'go build'],
             \   'c': [],
             \   'cpp': [],
             \}
 let g:ale_python_flake8_options="--ignore=E501"
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed='never'
+let g:ale_lint_on_enter=0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-"let g:ale_sign_error = '✘'
-"let g:ale_sign_warning = '⚠'
+"let g:ale_sign_error='✘'
+"let g:ale_sign_warning='⚠'
 
 " ctrlp
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
+let g:ctrlp_map='<c-p>'
+let g:ctrlp_cmd='CtrlP'
+let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_custom_ignore='\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore={
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ 'link': 'some_bad_symbolic_links',
@@ -127,13 +128,13 @@ if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
+  let g:ctrlp_use_caching=0
 endif
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-let g:ctrlp_regexp = 1
+let g:ctrlp_regexp=1
 
 " vim beakpoint format to clipboard
 function CopyAsBreakpoint()
@@ -143,45 +144,68 @@ endfunction
 command CopyAsBreak call CopyAsBreakpoint()
 
 " vim-go config
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_list_type = "quickfix"
-let g:go_fmt_autosave = 1
-let g:go_def_mapping_enabled = 0
+let g:go_highlight_functions=1
+let g:go_highlight_methods=1
+let g:go_highlight_fields=1
+let g:go_highlight_types=1
+let g:go_highlight_operators=1
+let g:go_highlight_build_constraints=1
+let g:go_list_type="quickfix"
+let g:go_fmt_autosave=1
+let g:go_def_mapping_enabled=0
 
 " autopep8
-let g:autopep8_disable_show_diff = 1
+let g:autopep8_disable_show_diff=1
 
 " markdown config
-let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
+let g:vim_markdown_folding_disabled=1 "设置不做代码折叠
 
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
 let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]']
 
-" terryma/vim-multiple-cursors config
-let g:multi_cursor_next_key='<C-m>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
-let g:multi_cursor_quit_key='<Esc>'
+" terryma/vim-multiple-cursors
+let g:multi_cursor_use_default_mapping=0
+" Default mapping
+let g:multi_cursor_start_word_key     ='<C-n>'
+let g:multi_cursor_select_all_word_key='<C-m><C-n>'
+let g:multi_cursor_start_key          ='g<C-n>'
+let g:multi_cursor_select_all_key     ='g<C-m><C-n>'
+let g:multi_cursor_next_key           ='<C-n>'
+let g:multi_cursor_prev_key           ='<C-p>'
+let g:multi_cursor_skip_key           ='<C-x>'
+let g:multi_cursor_quit_key           ='<Esc>'
 
 " UI config
 set laststatus=2
 set t_Co=256
 if has('gui_running')
-    set guifont=Menlo:h12
+    set guifont=Knack\ Nerd\ Font:h13
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
 
 set background=dark
 
-silent! colorscheme gruvbox
-syntax enable
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+
+let g:onedark_terminal_italics=1
+syntax on
+silent! colorscheme onedark
 
 " reset background color
 "hi Normal ctermbg=none
@@ -258,9 +282,9 @@ set wildignore+=venv/**,vendor/**
 
 " Change cursor shape between insert and normal mode in iTerm2.app
 if $TERM_PROGRAM =~ "iTerm"
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
-    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_SI="\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+    let &t_EI="\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+    let &t_SR="\<Esc>]50;CursorShape=2\x7"
 endif
 autocmd BufNewFile,BufRead *.cl set filetype=opencl
 autocmd BufNewFile,BufRead *.vs,*.fs set ft=glsl
