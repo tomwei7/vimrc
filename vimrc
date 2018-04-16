@@ -9,7 +9,7 @@ Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
 "Plug 'terryma/vim-multiple-cursors'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'honza/vim-snippets'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
@@ -17,8 +17,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 " Load on nothing
-Plug 'SirVer/ultisnips', { 'on': [] }
-Plug 'Valloric/YouCompleteMe', { 'on': 'YcmCompleter' }
+"Plug 'SirVer/ultisnips', { 'on': [] }
+Plug 'SirVer/ultisnips'
+"Plug 'Valloric/YouCompleteMe', { 'on': 'YcmCompleter' }
+Plug 'Valloric/YouCompleteMe'
 " YcmCompleter help
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
 " for front end
@@ -41,8 +43,6 @@ Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
 Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 " for toml
 Plug 'cespare/vim-toml', {'for': 'toml'}
-" for glsl
-Plug 'tikhomirov/vim-glsl', {'for': 'glsl'}
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
 " Initialize Plug system
@@ -50,13 +50,6 @@ call plug#end()
 
 "tagbar config
 let g:tagbar_width=30
-
-" YouCompleteMe lazy load
-augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                     \| autocmd! load_us_ycm
-augroup END
 
 "YouCompleteMe Config
 let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
@@ -67,6 +60,7 @@ else
 endif
 let g:ycm_key_invoke_completion='<C-a>'
 let g:ycm_confirm_extra_conf=0
+let g:ycm_autoclose_preview_window_after_insertion=1
 
 nmap gd :YcmCompleter GoToDefinition <CR>
 
@@ -81,12 +75,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-x>"
 let g:UltiSnipsEditSplit="vertical"
 
 " airline config
-"let g:airline#extensions#tabline#enabled=0
-"let g:airline#extensions#tabline#left_sep=' '
-"let g:airline#extensions#tabline#left_alt_sep='|'
-"let g:airline#extensions#cursormode#enabled=0
 let g:airline_theme='onedark'
-let g:airline_powerline_fonts=1
 
 " doxygenToolkit.vim config
 let g:DoxygenToolkit_briefTag_pre="@Synopsis " 
@@ -102,23 +91,21 @@ let g:ale_linters={
             \   'go': ['golint', 'go build'],
             \   'c': [],
             \   'cpp': [],
+            \   'proto': [],
             \}
 let g:ale_python_flake8_options="--ignore=E501"
 let g:ale_lint_on_text_changed='never'
 let g:ale_lint_on_enter=0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-"let g:ale_sign_error='✘'
-"let g:ale_sign_warning='⚠'
 
 " ctrlp
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd='CtrlP'
 let g:ctrlp_working_path_mode='ra'
-let g:ctrlp_custom_ignore='\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore={
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'file': '\v\.(exe|so|dll|pyc)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
@@ -126,12 +113,10 @@ let g:ctrlp_custom_ignore={
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
-
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
-
   " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching=0
+  " let g:ctrlp_use_caching=0
 endif
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 let g:ctrlp_regexp=1
@@ -204,8 +189,9 @@ if (empty($TMUX))
 endif
 
 let g:onedark_terminal_italics=1
-syntax on
+syntax enable
 silent! colorscheme onedark
+filetype indent plugin on
 
 " reset background color
 "hi Normal ctermbg=none
