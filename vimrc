@@ -34,6 +34,7 @@ Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp']}
 Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 " for markdown
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'kannokanno/previm', {'for': 'markdown'}
 " for golang
 Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -145,6 +146,9 @@ let g:autopep8_disable_show_diff=1
 " markdown config
 let g:vim_markdown_folding_disabled=1 "设置不做代码折叠
 
+" previm config
+let g:previm_open_cmd = 'open -a Google\ Chrome'
+
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
 let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]']
@@ -165,7 +169,7 @@ let g:multi_cursor_quit_key           ='<Esc>'
 set laststatus=2
 set t_Co=256
 if has('gui_running')
-    set guifont=Knack\ Nerd\ Font:h13
+    set guifont=Menlo:h14
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
