@@ -9,17 +9,16 @@ Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
 "Plug 'terryma/vim-multiple-cursors'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
 Plug 'jiangmiao/auto-pairs'
+" git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
+" lint
 Plug 'w0rp/ale'
-Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
-" Load on nothing
-"Plug 'SirVer/ultisnips', { 'on': [] }
-Plug 'SirVer/ultisnips'
-"Plug 'Valloric/YouCompleteMe', { 'on': 'YcmCompleter' }
+" complete
 Plug 'Valloric/YouCompleteMe'
 " YcmCompleter help
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
@@ -77,6 +76,7 @@ let g:UltiSnipsEditSplit="vertical"
 
 " airline config
 let g:airline_theme='onedark'
+let g:airline_powerline_fonts=1
 
 " doxygenToolkit.vim config
 let g:DoxygenToolkit_briefTag_pre="@Synopsis " 
@@ -100,27 +100,10 @@ let g:ale_lint_on_enter=0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" ctrlp
-let g:ctrlp_map='<c-p>'
-let g:ctrlp_cmd='CtrlP'
-let g:ctrlp_working_path_mode='ra'
-let g:ctrlp_custom_ignore={
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll|pyc)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  " let g:ctrlp_use_caching=0
-endif
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-let g:ctrlp_regexp=1
+" leaderf
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_StlColorscheme = 'powerline'
 
 " vim beakpoint format to clipboard
 function CopyAsBreakpoint()
