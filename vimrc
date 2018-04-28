@@ -104,6 +104,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:Lf_ShortcutF = '<c-p>'
 let g:Lf_WindowHeight = 0.30
 let g:Lf_StlColorscheme = 'powerline'
+command LF :LeaderfFunction
 
 " vim beakpoint format to clipboard
 function CopyAsBreakpoint()
@@ -152,7 +153,7 @@ let g:multi_cursor_quit_key           ='<Esc>'
 set laststatus=2
 set t_Co=256
 if has('gui_running')
-    set guifont=Menlo:h14
+    set guifont=Droid\ Sans\ Mono\ for\ Powerline:h15
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
