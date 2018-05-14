@@ -10,6 +10,7 @@ Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
 "Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'wincent/ferret', {'on': 'Ack'}
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'jiangmiao/auto-pairs'
@@ -18,7 +19,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " lint
 Plug 'w0rp/ale'
-" complete
+" YouCompleteMe
 Plug 'Valloric/YouCompleteMe'
 " YcmCompleter help
 Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
@@ -60,7 +61,7 @@ else
 endif
 let g:ycm_key_invoke_completion='<C-a>'
 let g:ycm_confirm_extra_conf=0
-let g:ycm_autoclose_preview_window_after_insertion=1
+let g:ycm_autoclose_preview_window_after_insertion=0
 
 nmap gd :YcmCompleter GoToDefinition <CR>
 
@@ -93,6 +94,7 @@ let g:ale_linters={
             \   'c': [],
             \   'cpp': [],
             \   'proto': [],
+            \   'js': [],
             \}
 let g:ale_python_flake8_options="--ignore=E501"
 let g:ale_lint_on_text_changed='never'
@@ -181,14 +183,16 @@ syntax enable
 silent! colorscheme onedark
 filetype indent plugin on
 
-" reset background color
-"hi Normal ctermbg=none
 " 高亮当前行
 set cursorline
-highlight clear SignColumn
+"highlight clear SignColumn
+
+" hack
+set lazyredraw
+set ttyfast
 
 "编辑器设置
-set nu
+set number
 " Tab键的宽度
 set tabstop=4
 " 统一缩进为4
@@ -202,6 +206,7 @@ set noswapfile
 "搜索忽略大小写
 set smartcase
 set ignorecase
+set incsearch
 
 " 编码支持
 set fileencodings=utf-8,gb18030,gbk,gb2312,big5
