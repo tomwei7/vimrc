@@ -14,6 +14,7 @@ Plug 'wincent/ferret', {'on': 'Ack'}
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'jiangmiao/auto-pairs'
+Plug 'skywind3000/asyncrun.vim'
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -137,7 +138,7 @@ let g:previm_open_cmd = 'open -a Google\ Chrome'
 
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
-let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]']
+let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]', 'bazel-*']
 
 " terryma/vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
@@ -155,7 +156,7 @@ let g:multi_cursor_quit_key           ='<Esc>'
 set laststatus=2
 set t_Co=256
 if has('gui_running')
-    set guifont=Droid\ Sans\ Mono\ for\ Powerline:h15
+    set guifont=Droid\ Sans\ Mono\ for\ Powerline:h12
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
