@@ -2,19 +2,21 @@ set nocompatible              " be iMproved, required
 set shortmess=atI
 set backspace=indent,eol,start
 
+""" {{{ Plugin list
 call plug#begin('~/.vim/plugged')
 " common plugin
 Plug 'bling/vim-airline'
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
-"Plug 'terryma/vim-multiple-cursors'
+Plug 'ryanoasis/vim-devicons'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'wincent/ferret', {'on': 'Ack'}
 Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'jiangmiao/auto-pairs'
-Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 " git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -45,10 +47,11 @@ Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
 Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 " for toml
 Plug 'cespare/vim-toml', {'for': 'toml'}
-Plug 'joshdick/onedark.vim'
+Plug 'jacoborus/tender.vim'
 Plug 'sheerun/vim-polyglot'
 " Initialize Plug system
 call plug#end()
+""" }}}
 
 "tagbar config
 let g:tagbar_width=30
@@ -73,12 +76,12 @@ nmap gd :YcmCompleter GoToDefinition <CR>
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-x>"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories=["ultisnips"]
 
 " airline config
-let g:airline_theme='onedark'
+let g:airline_theme='tender'
 let g:airline_powerline_fonts=1
+let g:airline_highlighting_cache=1
 
 " doxygenToolkit.vim config
 let g:DoxygenToolkit_briefTag_pre="@Synopsis " 
@@ -103,12 +106,6 @@ let g:ale_lint_on_enter=0
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" leaderf
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_StlColorscheme = 'powerline'
-command LF :LeaderfFunction
-
 " vim beakpoint format to clipboard
 function CopyAsBreakpoint()
     let s:pos=expand('%:p') . ':' . line('.')
@@ -126,6 +123,7 @@ let g:go_highlight_build_constraints=1
 let g:go_list_type="quickfix"
 let g:go_fmt_autosave=1
 let g:go_def_mapping_enabled=0
+let g:go_get_update=1
 
 " autopep8
 let g:autopep8_disable_show_diff=1
@@ -135,6 +133,13 @@ let g:vim_markdown_folding_disabled=1 "设置不做代码折叠
 
 " previm config
 let g:previm_open_cmd = 'open -a Google\ Chrome'
+
+" leaderf config
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+command LF :LeaderfFunction
+command LB :LeaderfBuffer
 
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
@@ -152,11 +157,14 @@ let g:multi_cursor_prev_key           ='<C-p>'
 let g:multi_cursor_skip_key           ='<C-x>'
 let g:multi_cursor_quit_key           ='<Esc>'
 
+" onedark theme config
+let g:onedark_terminal_italics=1
+
 " UI config
 set laststatus=2
 set t_Co=256
 if has('gui_running')
-    set guifont=Droid\ Sans\ Mono\ for\ Powerline:h12
+    set guifont=Droid\ Sans\ Mono\ for\ Powerline:h13
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
@@ -179,49 +187,47 @@ if (empty($TMUX))
   endif
 endif
 
-let g:onedark_terminal_italics=1
 syntax enable
-silent! colorscheme onedark
+silent! colorscheme tender
 filetype indent plugin on
 
-" 高亮当前行
+" highlight current line
 set cursorline
-"highlight clear SignColumn
 
-" hack
+" fast renderer
 set lazyredraw
 set ttyfast
 
-"编辑器设置
+" show line number
 set number
-" Tab键的宽度
+
+" set indent
 set tabstop=4
-" 统一缩进为4
 set softtabstop=4
 set shiftwidth=4
-" 空格代替制表符
+" use space instead of tab
 set expandtab
-"禁止生成临时文件
+
+" disable backup file
 set nobackup
+" disable swapfile
 set noswapfile
-"搜索忽略大小写
-set smartcase
+
 set ignorecase
+set smartcase
 set incsearch
 
-" 编码支持
 set fileencodings=utf-8,gb18030,gbk,gb2312,big5
 
-" 设置不可见字符
+" show invisible char
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
-" 不同文件缩进
+" different indent
 autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue  setlocal ts=2 sts=2 sw=2
 
-" 每行最大字符数
 autocmd Filetype python setlocal colorcolumn=121
 
-" 模板
+" file template
 autocmd BufNewFile *.py silent! 0r ~/.vim/template/simple.py 
 autocmd BufNewFile *.php silent! 0r ~/.vim/template/simple.php 
 autocmd BufNewFile *.sh silent! 0r ~/.vim/template/simple.sh 
@@ -239,14 +245,6 @@ command Q q
 " tern
 au BufNewFile,BufRead .tern-project setf json
 au BufNewFile,BufRead .tern-config setf json
-
-" build设置
-" python
-au Filetype python map <buffer> <F5> :!time /usr/bin/env python % <CR>
-" go
-au Filetype go map <buffer> <F5> :!time go run % <CR>
-" bash
-au Filetype sh map <buffer> <F5> :!bash % <CR>
 
 command JsonFormat execute "%!python -m json.tool"
 
@@ -266,5 +264,8 @@ if $TERM_PROGRAM =~ "iTerm"
     let &t_EI="\<Esc>]50;CursorShape=0\x7" " Block in normal mode
     let &t_SR="\<Esc>]50;CursorShape=2\x7"
 endif
+
 autocmd BufNewFile,BufRead *.cl set filetype=opencl
 autocmd BufNewFile,BufRead *.vs,*.fs set ft=glsl
+set foldmethod=marker
+set maxmempattern=10240
