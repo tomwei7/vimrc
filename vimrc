@@ -10,11 +10,8 @@ Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
 Plug 'ryanoasis/vim-devicons'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFuntion']}
 Plug 'wincent/ferret', {'on': 'Ack'}
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
 Plug 'jiangmiao/auto-pairs'
 Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 " git
@@ -22,10 +19,13 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " lint
 Plug 'w0rp/ale'
+" snippets
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips', {'on': []}
 " YouCompleteMe
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'on': []}
 " YcmCompleter help
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable', 'on': 'YcmGenerateConfig'}
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig'}
 " for front end
 Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
 " for javascript
@@ -52,6 +52,12 @@ Plug 'sheerun/vim-polyglot'
 " Initialize Plug system
 call plug#end()
 """ }}}
+
+augroup load_us_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                     \| autocmd! load_us_ycm
+augroup END
 
 "tagbar config
 let g:tagbar_width=30
@@ -140,22 +146,11 @@ let g:Lf_WindowHeight = 0.30
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 command LF :LeaderfFunction
 command LB :LeaderfBuffer
+map <C-p> :LeaderfFile<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
 let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]', 'bazel-*']
-
-" terryma/vim-multiple-cursors
-let g:multi_cursor_use_default_mapping=0
-" Default mapping
-let g:multi_cursor_start_word_key     ='<C-n>'
-let g:multi_cursor_select_all_word_key='<C-m><C-n>'
-let g:multi_cursor_start_key          ='g<C-n>'
-let g:multi_cursor_select_all_key     ='g<C-m><C-n>'
-let g:multi_cursor_next_key           ='<C-n>'
-let g:multi_cursor_prev_key           ='<C-p>'
-let g:multi_cursor_skip_key           ='<C-x>'
-let g:multi_cursor_quit_key           ='<Esc>'
 
 " onedark theme config
 let g:onedark_terminal_italics=1
@@ -164,7 +159,7 @@ let g:onedark_terminal_italics=1
 set laststatus=2
 set t_Co=256
 if has('gui_running')
-    set guifont=Droid\ Sans\ Mono\ for\ Powerline:h13
+    set guifont=Droid\ Sans\ Mono\ Nerd\ Font\ Complete:h13
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
