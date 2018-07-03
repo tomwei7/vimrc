@@ -10,7 +10,7 @@ Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
 Plug 'ryanoasis/vim-devicons'
-Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFuntion']}
+Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction']}
 Plug 'wincent/ferret', {'on': 'Ack'}
 Plug 'jiangmiao/auto-pairs'
 Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
@@ -21,9 +21,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'w0rp/ale'
 " snippets
 Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips', {'on': []}
+Plug 'SirVer/ultisnips'
 " YouCompleteMe
-Plug 'Valloric/YouCompleteMe', {'on': []}
+Plug 'Valloric/YouCompleteMe'
 " YcmCompleter help
 Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig'}
 " for front end
@@ -52,12 +52,6 @@ Plug 'sheerun/vim-polyglot'
 " Initialize Plug system
 call plug#end()
 """ }}}
-
-augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                     \| autocmd! load_us_ycm
-augroup END
 
 "tagbar config
 let g:tagbar_width=30
@@ -233,10 +227,6 @@ map <F8>  :set list!<CR>
 map <F9>  :bp<CR>
 map <F10> :bn<CR>
 
-" 勘误
-command W w
-command Q q
-
 " tern
 au BufNewFile,BufRead .tern-project setf json
 au BufNewFile,BufRead .tern-config setf json
@@ -254,7 +244,7 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 set wildignore+=venv/**,vendor/**
 
 " Change cursor shape between insert and normal mode in iTerm2.app
-if $TERM_PROGRAM =~ "iTerm"
+if $TERM_PROGRAM =~ "iTerm" && !has('nvim')
     let &t_SI="\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
     let &t_EI="\<Esc>]50;CursorShape=0\x7" " Block in normal mode
     let &t_SR="\<Esc>]50;CursorShape=2\x7"
