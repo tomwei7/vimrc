@@ -1,6 +1,16 @@
+" load tvim
+call tvim#init()
+
 set nocompatible              " be iMproved, required
 set shortmess=atI
 set backspace=indent,eol,start
+
+" auto install plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 """ {{{ Plugin list
 call plug#begin('~/.vim/plugged')
@@ -19,13 +29,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 " lint
 Plug 'w0rp/ale'
-" snippets
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-" YouCompleteMe
-Plug 'Valloric/YouCompleteMe'
-" YcmCompleter help
-Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig'}
 " for front end
 Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
 " for javascript
@@ -49,9 +52,25 @@ Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'jacoborus/tender.vim'
 Plug 'sheerun/vim-polyglot'
+if g:tvim_mode=='huge'
+    " snippets
+    Plug 'honza/vim-snippets'
+    Plug 'SirVer/ultisnips', { 'on': [] }
+    " YouCompleteMe
+    Plug 'Valloric/YouCompleteMe', {'on': ['YcmCompleter']}
+    " YcmCompleter help
+    Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig'}
+endif
 " Initialize Plug system
 call plug#end()
 """ }}}
+
+" load ultisnips and YouCompleteMe when into insert mode
+augroup load_us_ycm
+  autocmd!
+  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+                     \| autocmd! load_us_ycm
+augroup END
 
 "tagbar config
 let g:tagbar_width=30
@@ -254,3 +273,4 @@ autocmd BufNewFile,BufRead *.cl set filetype=opencl
 autocmd BufNewFile,BufRead *.vs,*.fs set ft=glsl
 set foldmethod=marker
 set maxmempattern=10240
+set wildmenu
