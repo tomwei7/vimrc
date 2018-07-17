@@ -1,3 +1,7 @@
+" ignore python 3.7 imp module is deprecated warning
+if has('python3')
+  silent! python3 1
+endif
 " load tvim
 call tvim#init()
 
@@ -50,8 +54,9 @@ Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
 Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
 " for toml
 Plug 'cespare/vim-toml', {'for': 'toml'}
-Plug 'jacoborus/tender.vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'morhetz/gruvbox'
+
 if g:tvim_mode=='huge'
     " snippets
     Plug 'honza/vim-snippets'
@@ -98,7 +103,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-x>"
 let g:UltiSnipsSnippetDirectories=["ultisnips"]
 
 " airline config
-let g:airline_theme='tender'
+let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts=1
 let g:airline_highlighting_cache=1
 
@@ -163,21 +168,16 @@ map <C-p> :LeaderfFile<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
-let g:NERDTreeIgnore=['__pycache__', '\.pyc$[[file]]', 'bazel-*']
-
-" onedark theme config
-let g:onedark_terminal_italics=1
+let g:NERDTreeIgnore = ['__pycache__', '\.pyc$[[file]]', 'bazel-*']
 
 " UI config
 set laststatus=2
-set t_Co=256
+"set t_Co=256
 if has('gui_running')
     set guifont=Droid\ Sans\ Mono\ Nerd\ Font\ Complete:h13
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
-
-set background=dark
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -195,8 +195,11 @@ if (empty($TMUX))
   endif
 endif
 
+let g:gruvbox_italic = 1
+
 syntax enable
-silent! colorscheme tender
+set background=dark
+silent! colorscheme gruvbox
 filetype indent plugin on
 
 " highlight current line
