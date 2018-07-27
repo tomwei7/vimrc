@@ -2,3 +2,7 @@
 snippet toml "\`toml:key\`"
 \`toml:"${1:`!v  go#util#snippetcase(matchstr(getline("."), '\w\+'))`}"\`
 endsnippet
+
+snippet json "\`json:key\`"
+\`json:"${1:`!v  go#util#snippetcase(matchstr(getline("."), '\w\+'))`}"\`
+endsnippet
