@@ -60,9 +60,9 @@ Plug 'morhetz/gruvbox'
 if g:tvim_mode=='huge'
     " snippets
     Plug 'honza/vim-snippets'
-    Plug 'SirVer/ultisnips', { 'on': [] }
+    Plug 'SirVer/ultisnips'
     " YouCompleteMe
-    Plug 'Valloric/YouCompleteMe', {'on': ['YcmCompleter']}
+    Plug 'Valloric/YouCompleteMe'
     " YcmCompleter help
     Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig'}
 endif
@@ -71,11 +71,11 @@ call plug#end()
 """ }}}
 
 " load ultisnips and YouCompleteMe when into insert mode
-augroup load_us_ycm
-  autocmd!
-  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
-                     \| autocmd! load_us_ycm
-augroup END
+"augroup load_us_ycm
+"  autocmd!
+"  autocmd InsertEnter * call plug#load('ultisnips', 'YouCompleteMe')
+"                     \| autocmd! load_us_ycm
+"augroup END
 
 "tagbar config
 let g:tagbar_width=30
@@ -174,7 +174,7 @@ let g:NERDTreeIgnore = ['__pycache__', '\.pyc$[[file]]', 'bazel-*']
 set laststatus=2
 "set t_Co=256
 if has('gui_running')
-    set guifont=Droid\ Sans\ Mono\ Nerd\ Font\ Complete:h13
+    set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Complete:h14
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
@@ -211,6 +211,8 @@ set ttyfast
 
 " show line number
 set number
+" mouse scroll
+set mouse=a
 
 " set indent
 set tabstop=4
