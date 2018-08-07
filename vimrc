@@ -16,7 +16,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-""" {{{ Plugin list
 call plug#begin('~/.vim/plugged')
 " common plugin
 Plug 'bling/vim-airline'
@@ -68,7 +67,6 @@ if g:tvim_mode=='huge'
 endif
 " Initialize Plug system
 call plug#end()
-""" }}}
 
 " load ultisnips and YouCompleteMe when into insert mode
 "augroup load_us_ycm
@@ -174,7 +172,7 @@ let g:NERDTreeIgnore = ['__pycache__', '\.pyc$[[file]]', 'bazel-*']
 set laststatus=2
 "set t_Co=256
 if has('gui_running')
-    set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Complete:h14
+    set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Complete:h13
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
@@ -211,8 +209,6 @@ set ttyfast
 
 " show line number
 set number
-" mouse scroll
-set mouse=a
 
 " set indent
 set tabstop=4
