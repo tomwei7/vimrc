@@ -3,3 +3,4 @@ plugged/
 *.pyc
 .netrwhist
 mode.vim
+config.vim
