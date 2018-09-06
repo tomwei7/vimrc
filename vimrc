@@ -85,6 +85,8 @@ endif
 set shortmess=Ot
 " ignore venv and vendor
 set wildignore+=venv/**,vendor/**
+set foldlevelstart=10
+set foldmethod=syntax
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
@@ -98,12 +100,17 @@ map <Leader>n :bn<CR>
 autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue  setlocal ts=2 sts=2 sw=2
 autocmd Filetype python setlocal colorcolumn=121
 autocmd Filetype vim setlocal foldmethod=marker
+autocmd Filetype go setlocal noexpandtab
 
 " file template
 autocmd BufNewFile *.py silent! 0r ~/.vim/template/simple.py 
 autocmd BufNewFile *.php silent! 0r ~/.vim/template/simple.php 
 autocmd BufNewFile *.sh silent! 0r ~/.vim/template/simple.sh 
 autocmd BufNewFile *.go silent! 0r ~/.vim/template/simple.go
+
+" fix filetype
+autocmd BufNewFile,BufRead *.cl set filetype=opencl
+autocmd BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
 " tern
 au BufNewFile,BufRead .tern-project setf json
@@ -115,9 +122,6 @@ if $TERM_PROGRAM =~ "iTerm" && !has('nvim') && g:tvim_change_cursor
     let &t_EI="\<Esc>]50;CursorShape=0\x7" " Block in normal mode
     let &t_SR="\<Esc>]50;CursorShape=2\x7"
 endif
-
-autocmd BufNewFile,BufRead *.cl set filetype=opencl
-autocmd BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
 " vim beakpoint format to clipboard
 function CopyAsBreakpoint()
