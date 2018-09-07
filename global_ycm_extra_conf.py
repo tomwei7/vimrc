@@ -27,6 +27,7 @@
 # OTHER DEALINGS IN THE SOFTWARE.
 #
 # For more information, please refer to <http://unlicense.org/>
+# flake8: noqa
 
 from distutils.sysconfig import get_python_inc
 import platform
@@ -163,6 +164,11 @@ def Settings( **kwargs ):
       'include_paths_relative_to_dir': compilation_info.compiler_working_dir_,
       'override_filename': filename
     }
+  if kwargs[ 'language' ] == 'python':
+    if os.getenv( 'VIRTUAL_ENV' ) is None:
+      return {'interpreter_path': 'python3'}
+    else:
+      return {'interpreter_path': 'python'}
   return {}
 
 

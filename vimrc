@@ -53,7 +53,7 @@ set wildmenu
 
 syntax enable
 set background=dark
-silent! colorscheme gruvbox
+silent! colorscheme tender
 filetype indent plugin on
 
 " UI config
@@ -113,8 +113,9 @@ autocmd BufNewFile,BufRead *.cl set filetype=opencl
 autocmd BufNewFile,BufRead *.vs,*.fs set ft=glsl
 
 " tern
-au BufNewFile,BufRead .tern-project setf json
-au BufNewFile,BufRead .tern-config setf json
+autocmd BufNewFile,BufRead .tern-project setf json
+autocmd BufNewFile,BufRead .tern-config setf json
+autocmd BufNewFile,BufRead global_ycm_extra_conf.py setlocal ts=2 sts=2 sw=2
 
 " Change cursor shape between insert and normal mode in iTerm2.app
 if $TERM_PROGRAM =~ "iTerm" && !has('nvim') && g:tvim_change_cursor

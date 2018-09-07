@@ -16,6 +16,7 @@ Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBu
 Plug 'wincent/ferret', {'on': 'Ack'}
 Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 Plug 'morhetz/gruvbox'
+Plug 'jacoborus/tender.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 
@@ -76,8 +77,8 @@ call plug#end()
 
 """ ariline {{{
 if has_key(g:plugs, 'vim-airline')
-    if has_key(g:plugs, 'gruvbox')
-        let g:airline_theme='gruvbox'
+    if has_key(g:plugs, 'tender')
+        let g:airline_theme='tender'
     endif
     let g:airline_powerline_fonts=g:tvim_powerline_fonts
     let g:airline_highlighting_cache=1
@@ -121,7 +122,7 @@ endif
 "}}}
 
 """ YcmCompleter {{{
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/global_ycm_extra_conf.py'
 if !empty($VIRTUAL_ENV)
     let g:ycm_python_binary_path='python'
 else
