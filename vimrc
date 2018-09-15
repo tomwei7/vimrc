@@ -60,7 +60,7 @@ filetype indent plugin on
 set laststatus=2
 "set t_Co=256
 if has('gui_running')
-    set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Complete:h13
+    set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Complete:h14
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
