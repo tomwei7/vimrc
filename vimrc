@@ -9,7 +9,7 @@ endif
 " tvim default configure
 let g:tvim_powerline_fonts=0
 let g:tvim_italic=0
-let g:tvim_icon=1
+let g:tvim_icon=0
 let g:tvim_features=[]
 let g:tvim_all_features=0
 let g:tvim_change_cursor=0
