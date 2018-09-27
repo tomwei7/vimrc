@@ -91,9 +91,9 @@ set foldmethod=syntax
 " cursor, so undefine the mapping there.
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
-"let mapleader=","
-map <Leader>v  :set list!<CR>
-map <Leader>p  :bp<CR>
+let mapleader=","
+map <Leader>v :set list!<CR>
+map <Leader>p :bp<CR>
 map <Leader>n :bn<CR>
 map <Leader>t :LeaderfBufTag<CR>
 

@@ -18,7 +18,6 @@ Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
-Plug 'Yggdroot/indentLine'
 
 if count(g:tvim_features, 'lint') || g:tvim_all_features
     Plug 'w0rp/ale'
@@ -32,6 +31,13 @@ endif
 if count(g:tvim_features, 'markdown') || g:tvim_all_features
     Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
     Plug 'kannokanno/previm', {'for': 'markdown'}
+endif
+
+if count(g:tvim_features, 'indentline') || g:tvim_all_features
+    Plug 'yggdroot/indentline', {'for': []}
+    augroup plug_not_markdown
+        autocmd FileType * if expand('<amatch>') != 'markdown' | call plug#load('indentline') | execute 'autocmd! plug_not_markdown' | endif
+    augroup END
 endif
 
 if count(g:tvim_features, 'python') || g:tvim_all_features
