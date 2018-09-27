@@ -12,13 +12,13 @@ Plug 'bling/vim-airline'
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
-Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction']}
+Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
 Plug 'wincent/ferret', {'on': 'Ack'}
 Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
 Plug 'morhetz/gruvbox'
-Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
+Plug 'Yggdroot/indentLine'
 
 if count(g:tvim_features, 'lint') || g:tvim_all_features
     Plug 'w0rp/ale'
@@ -172,6 +172,8 @@ else
 end
 command LF :LeaderfFunction
 command LB :LeaderfBuffer
+command LT :LeaderfBufTag
+command LAT :LeaderfBufTagAll
 map <C-p> :LeaderfFile<CR>
 "}}}
 

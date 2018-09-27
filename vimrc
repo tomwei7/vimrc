@@ -91,10 +91,11 @@ set foldmethod=syntax
 " cursor, so undefine the mapping there.
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
-let mapleader=","
+"let mapleader=","
 map <Leader>v  :set list!<CR>
 map <Leader>p  :bp<CR>
 map <Leader>n :bn<CR>
+map <Leader>t :LeaderfBufTag<CR>
 
 " different indent
 autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue  setlocal ts=2 sts=2 sw=2
