@@ -53,7 +53,7 @@ set wildmenu
 
 syntax enable
 set background=dark
-silent! colorscheme gruvbox
+silent! colorscheme base16-default-dark
 filetype indent plugin on
 
 " UI config

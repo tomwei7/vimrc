@@ -15,7 +15,7 @@ Plug 'godlygeek/tabular'
 Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
 Plug 'wincent/ferret', {'on': 'Ack'}
 Plug 'skywind3000/asyncrun.vim', {'on': 'AsyncRun'}
-Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
 
@@ -34,10 +34,8 @@ if count(g:tvim_features, 'markdown') || g:tvim_all_features
 endif
 
 if count(g:tvim_features, 'indentline') || g:tvim_all_features
-    Plug 'yggdroot/indentline', {'for': []}
-    augroup plug_not_markdown
-        autocmd FileType * if expand('<amatch>') != 'markdown' | call plug#load('indentline') | execute 'autocmd! plug_not_markdown' | endif
-    augroup END
+    let g:indentLine_enabled = 0
+    Plug 'yggdroot/indentline'
 endif
 
 if count(g:tvim_features, 'python') || g:tvim_all_features
@@ -83,9 +81,7 @@ call plug#end()
 
 """ ariline {{{
 if has_key(g:plugs, 'vim-airline')
-    if has_key(g:plugs, 'gruvbox')
-        let g:airline_theme='gruvbox'
-    endif
+    let g:airline_theme='base16'
     let g:airline_powerline_fonts=g:tvim_powerline_fonts
     let g:airline_highlighting_cache=1
 endif
