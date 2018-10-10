@@ -30,9 +30,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
-Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'wincent/ferret', {'on': 'Ack'}
-Plug 'chriskempson/base16-vim'
+Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
 Plug 'itchyny/lightline.vim'
 
@@ -94,6 +94,16 @@ endif
 
 " Initialize Plug system
 call plug#end()
+
+""" lightline {{{
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ }
+"}}}
+
+""" ctrlp {{{
+let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+"}}}
 
 """ ultisnips {{{
 if has_key(g:plugs, 'ultisnips')
@@ -172,21 +182,6 @@ let g:vim_markdown_folding_disabled=1 "设置不做代码折叠
 let g:autopep8_disable_show_diff=1
 "}}}
 
-""" LeaderF {{{
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_WindowHeight = 0.30
-if g:tvim_powerline_fonts
-    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-else
-    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-end
-command LF :LeaderfFunction
-command LB :LeaderfBuffer
-command LT :LeaderfBufTag
-command LAT :LeaderfBufTagAll
-map <C-p> :LeaderfFile<CR>
-"}}}
-
 """ NERDTree {{{
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
@@ -232,7 +227,7 @@ set wildmenu
 
 syntax enable
 set background=dark
-silent! colorscheme base16-default-dark
+silent! colorscheme one
 filetype indent plugin on
 
 " UI config
@@ -274,7 +269,7 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 map <Leader>v :set list!<CR>
 map <Leader>p :bp<CR>
 map <Leader>n :bn<CR>
-map <Leader>t :LeaderfBufTag<CR>
+map <Leader>t :CtrlPBufTag<CR>
 
 " different indent
 autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue  setlocal ts=2 sts=2 sw=2
