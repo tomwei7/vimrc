@@ -9,7 +9,6 @@ endif
 " tvim default configure
 let g:tvim_powerline_fonts=0
 let g:tvim_italic=0
-let g:tvim_icon=0
 let g:tvim_features=[]
 let g:tvim_all_features=0
 let g:tvim_change_cursor=0
@@ -93,9 +92,6 @@ if count(g:tvim_features, 'ycm') || g:tvim_all_features
     Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig'}
 endif
 
-if count(g:tvim_features, 'icons') || g:tvim_all_features
-    Plug 'ryanoasis/vim-devicons'
-endif
 " Initialize Plug system
 call plug#end()
 
@@ -195,6 +191,8 @@ map <C-p> :LeaderfFile<CR>
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
 let g:NERDTreeIgnore = ['__pycache__', '\.pyc$[[file]]', '^bazel-*']
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
 "}}}
 
 """ previm {{{
