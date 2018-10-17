@@ -30,11 +30,13 @@ call plug#begin('~/.vim/plugged')
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'godlygeek/tabular'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
 Plug 'wincent/ferret', {'on': 'Ack'}
 Plug 'rakr/vim-one'
 Plug 'sheerun/vim-polyglot'
 Plug 'itchyny/lightline.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'Yggdroot/indentLine'
 
 if count(g:tvim_features, 'lint') || g:tvim_all_features
     Plug 'w0rp/ale'
@@ -48,13 +50,6 @@ endif
 if count(g:tvim_features, 'markdown') || g:tvim_all_features
     Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
     Plug 'kannokanno/previm', {'for': 'markdown'}
-endif
-
-if count(g:tvim_features, 'indentline') || g:tvim_all_features
-    " Let indentLine use current conceal options
-    let g:indentLine_conceallevel  = &conceallevel
-    let g:indentLine_concealcursor = &concealcursor
-    Plug 'yggdroot/indentline'
 endif
 
 if count(g:tvim_features, 'python') || g:tvim_all_features
@@ -94,15 +89,28 @@ endif
 
 " Initialize Plug system
 call plug#end()
+""" indentLine {{{
+    let g:indentLine_fileTypeExclude = ['tex', 'markdown']
+""" }}}
 
 """ lightline {{{
 let g:lightline = {
       \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
+      \   }
       \ }
 "}}}
 
-""" ctrlp {{{
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+""" LeaderF {{{
+map <C-p> :LeaderfFile<CR>
+let g:Lf_WindowHeight = 0.30
+if g:tvim_powerline_fonts
+    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+else
+    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+end
+let g:Lf_StlColorscheme = 'one'
 "}}}
 
 """ ultisnips {{{
@@ -232,9 +240,9 @@ filetype indent plugin on
 
 " UI config
 set laststatus=2
-"set t_Co=256
+set t_Co=256
 if has('gui_running')
-    set guifont=SF\ Mono\ Regular\ Nerd\ Font\ Complete:h14
+    set guifont=FuraMono\ Nerd\ Font\ Mono:h12
     " 清除macvim滚动条
     set guioptions-=gmrL
 endif
@@ -259,8 +267,8 @@ endif
 set shortmess=Ot
 " ignore venv and vendor
 set wildignore+=venv/**,vendor/**
-set foldlevelstart=10
-set foldmethod=syntax
+"set foldlevelstart=10
+"set foldmethod=syntax
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
@@ -269,7 +277,8 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 map <Leader>v :set list!<CR>
 map <Leader>p :bp<CR>
 map <Leader>n :bn<CR>
-map <Leader>t :CtrlPBufTag<CR>
+map <Leader>t :LeaderfBufTag<CR>
+map <Leader>f :LeaderfFunction<CR>
 
 " different indent
 autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue  setlocal ts=2 sts=2 sw=2
@@ -310,4 +319,16 @@ if executable('jsontool')
     command JsonFormat execute "%!jsontool"
 else
     command JsonFormat execute "%!python -m json.tool"
+endif
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  "let g:ctrlp_use_caching = 0
 endif
