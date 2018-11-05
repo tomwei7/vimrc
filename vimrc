@@ -29,17 +29,22 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
-Plug 'godlygeek/tabular'
-Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
-Plug 'wincent/ferret', {'on': 'Ack'}
-Plug 'rakr/vim-one'
-Plug 'sheerun/vim-polyglot'
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
+Plug 'cespare/vim-toml', {'for': 'toml'}
+" colortheme
+Plug 'morhetz/gruvbox'
+
+if count(g:tvim_features, 'ctrlp') || g:tvim_all_features
+    Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
+endif
 
 if count(g:tvim_features, 'lint') || g:tvim_all_features
     Plug 'w0rp/ale'
+    let g:ale_fixers = {}
+    let g:ale_fixers.typescript = ['tslint']
+    let g:ale_fixers.javascript = ['eslint']
 endif
 
 if count(g:tvim_features, 'git') || g:tvim_all_features
@@ -48,6 +53,7 @@ if count(g:tvim_features, 'git') || g:tvim_all_features
 endif
 
 if count(g:tvim_features, 'markdown') || g:tvim_all_features
+    Plug 'godlygeek/tabular'
     Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
     Plug 'kannokanno/previm', {'for': 'markdown'}
 endif
@@ -60,6 +66,9 @@ if count(g:tvim_features, 'web') || g:tvim_all_features
     Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
     Plug 'pangloss/vim-javascript', {'for': 'javascript'}
     Plug 'posva/vim-vue', {'for': 'vue'}
+    Plug 'mxw/vim-jsx', {'for': 'jsx'}
+    Plug 'leafgarland/typescript-vim', {'for': ['tsx', 'typescript']}
+    Plug 'peitalin/vim-jsx-typescript', {'for': 'tsx'}
 endif
 
 if count(g:tvim_features, 'go') || g:tvim_all_features
@@ -89,18 +98,14 @@ endif
 
 " Initialize Plug system
 call plug#end()
+
+""" polyglot{{{
+let g:polyglot_disabled = ['vue', 'javascript', 'typescript', 'jsx', 'tsx']
+"""}}}
+
 """ indentLine {{{
     let g:indentLine_fileTypeExclude = ['tex', 'markdown']
 """ }}}
-
-""" lightline {{{
-let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'absolutepath', 'modified' ] ],
-      \   }
-      \ }
-"}}}
 
 """ LeaderF {{{
 map <C-p> :LeaderfFile<CR>
@@ -202,10 +207,6 @@ let g:NERDTreeDirArrowCollapsible = '-'
 let g:previm_open_cmd = 'open -a Google\ Chrome'
 "}}}
 
-""" gruvbox {{{
-let g:gruvbox_italic = g:tvim_italic
-"}}}
-
 " highlight current line
 set cursorline
 " fast renderer
@@ -234,18 +235,18 @@ set maxmempattern=10240
 set wildmenu
 
 syntax enable
-set background=dark
-silent! colorscheme one
-filetype indent plugin on
-
-" UI config
 set laststatus=2
 set t_Co=256
+colorscheme gruvbox
+set background=dark
+" UI config
 if has('gui_running')
-    set guifont=FuraMono\ Nerd\ Font\ Mono:h12
     " 清除macvim滚动条
+    set guifont=FuraMonoNerdFontCompleteM-Medium:h14
     set guioptions-=gmrL
 endif
+filetype indent plugin on
+
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -281,7 +282,7 @@ map <Leader>t :LeaderfBufTag<CR>
 map <Leader>f :LeaderfFunction<CR>
 
 " different indent
-autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue  setlocal ts=2 sts=2 sw=2
+autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue,typescript,jsx,tsx,proto  setlocal ts=2 sts=2 sw=2
 autocmd Filetype python setlocal colorcolumn=121
 autocmd Filetype vim setlocal foldmethod=marker
 autocmd Filetype go setlocal noexpandtab
