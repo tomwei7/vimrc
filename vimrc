@@ -31,10 +31,9 @@ Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
-Plug 'Yggdroot/indentLine'
 Plug 'cespare/vim-toml', {'for': 'toml'}
 " colortheme
-Plug 'morhetz/gruvbox'
+Plug 'jacoborus/tender.vim'
 
 if count(g:tvim_features, 'ctrlp') || g:tvim_all_features
     Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
@@ -237,7 +236,7 @@ set wildmenu
 syntax enable
 set laststatus=2
 set t_Co=256
-colorscheme gruvbox
+colorscheme tender
 set background=dark
 " UI config
 if has('gui_running')
@@ -333,3 +332,4 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   "let g:ctrlp_use_caching = 0
 endif
+let macvim_skip_colorscheme=1
