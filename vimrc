@@ -238,7 +238,9 @@ syntax enable
 set laststatus=2
 set t_Co=256
 set background=dark
-colorscheme neodark
+
+let g:neodark#use_256color = 1
+silent! colorscheme neodark
 " UI config
 if has('gui_running')
     " 清除macvim滚动条
