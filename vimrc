@@ -33,8 +33,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'cespare/vim-toml', {'for': 'toml'}
 " colortheme
-Plug 'jacoborus/tender.vim'
-Plug 'KeitaNakamura/neodark.vim'
+Plug 'rakr/vim-one'
 
 if count(g:tvim_features, 'ctrlp') || g:tvim_all_features
     Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
@@ -75,6 +74,7 @@ if count(g:tvim_features, 'go') || g:tvim_all_features
     " for golang
     Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
     Plug 'fatih/vim-go', {'for': 'go'}
+    Plug 'cespare/vim-toml', {'for': 'toml'}
 endif
 
 if count(g:tvim_features, 'c-family') || g:tvim_all_features
@@ -98,6 +98,10 @@ endif
 
 " Initialize Plug system
 call plug#end()
+
+""" airline{{{
+let g:airline_theme='one'
+"""}}}
 
 """ polyglot{{{
 let g:polyglot_disabled = ['vue', 'javascript', 'typescript', 'jsx', 'tsx']
@@ -239,8 +243,8 @@ set laststatus=2
 set t_Co=256
 set background=dark
 
-let g:neodark#use_256color = 1
-silent! colorscheme neodark
+colorscheme one
+set background=dark " for the dark version
 " UI config
 if has('gui_running')
     " 清除macvim滚动条
