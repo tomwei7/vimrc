@@ -31,7 +31,6 @@ Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
-Plug 'cespare/vim-toml', {'for': 'toml'}
 " colortheme
 Plug 'rakr/vim-one'
 
