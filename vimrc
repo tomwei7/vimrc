@@ -29,10 +29,10 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
-Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
+Plug 'itchyny/lightline.vim'
 " colortheme
-Plug 'rakr/vim-one'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 if count(g:tvim_features, 'ctrlp') || g:tvim_all_features
     Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
@@ -61,12 +61,13 @@ if count(g:tvim_features, 'python') || g:tvim_all_features
 endif
 
 if count(g:tvim_features, 'web') || g:tvim_all_features
-    Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango']}
+    Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango', 'vue']}
     Plug 'pangloss/vim-javascript', {'for': 'javascript'}
     Plug 'posva/vim-vue', {'for': 'vue'}
     Plug 'mxw/vim-jsx', {'for': 'jsx'}
     Plug 'leafgarland/typescript-vim', {'for': ['tsx', 'typescript']}
     Plug 'peitalin/vim-jsx-typescript', {'for': 'tsx'}
+    Plug 'tpope/vim-haml'
 endif
 
 if count(g:tvim_features, 'go') || g:tvim_all_features
@@ -98,8 +99,10 @@ endif
 " Initialize Plug system
 call plug#end()
 
-""" airline{{{
-let g:airline_theme='one'
+""" lightline{{{
+let g:lightline = {
+      \ 'colorscheme': 'darcula',
+      \ }
 """}}}
 
 """ polyglot{{{
@@ -167,7 +170,14 @@ endif
 let g:ycm_key_invoke_completion='<C-a>'
 let g:ycm_confirm_extra_conf=0
 let g:ycm_autoclose_preview_window_after_insertion=0
-let g:ycm_gocode_binary_path='/Users/weicheng/go/bin/gocode'
+for path in split($GOPATH, ':')
+    if ($PWD =~ path)
+        let g:ycm_gocode_binary_path='/Users/weicheng/.local/bin/gocode'
+    endif
+endfor
+if !exists("g:ycm_gocode_binary_path")
+    let g:ycm_gocode_binary_path='/Users/weicheng/.local/bin/gocode-mod'
+endif
 let g:ycm_godef_binary_path='/Users/weicheng/go/bin/godef'
 nmap gd :YcmCompleter GoToDefinition <CR>
 "}}}
@@ -242,8 +252,7 @@ set laststatus=2
 set t_Co=256
 set background=dark
 
-colorscheme one
-set background=dark " for the dark version
+colorscheme dracula
 " UI config
 if has('gui_running')
     " 清除macvim滚动条
@@ -287,7 +296,7 @@ map <Leader>t :LeaderfBufTag<CR>
 map <Leader>f :LeaderfFunction<CR>
 
 " different indent
-autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue,typescript,jsx,tsx,proto  setlocal ts=2 sts=2 sw=2
+autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue,typescript,jsx,tsx,proto,javascript.jsx  setlocal ts=2 sts=2 sw=2
 autocmd Filetype python setlocal colorcolumn=121
 autocmd Filetype vim setlocal foldmethod=marker
 autocmd Filetype go setlocal noexpandtab
