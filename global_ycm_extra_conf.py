@@ -88,10 +88,21 @@ get_python_inc(),
 'cpp/ycm/benchmarks/benchmark/include',
 ]
 
+# ProjectRoot find project root by git.
+def ProjectRoot(filename):
+  start_dir = p.dirname(filename)
+  project_root = None
+  while start_dir not in ('', '/') :
+    if not p.exists(p.join(start_dir, '.git')):
+      start_dir = p.dirname(start_dir)
+      continue
+    project_root = start_dir
+    break
+  return project_root
+
 # PlatformIOProject detect current filename is a platform io project
 # read flag config from .clang_complete and .gcc-flags.json
 def PlatformIOProject(filename):
-  print(filename)
   start_dir = p.dirname(filename)
   project_root = None
   while start_dir not in ('', '/') :
@@ -174,13 +185,20 @@ def Settings( **kwargs ):
     # in the corresponding source file.
     filename = FindCorrespondingSourceFile( kwargs[ 'filename' ] )
 
-    platform_io_flags = PlatformIOProject(filename)
+    platform_io_flags = PlatformIOProject( filename )
     if platform_io_flags is not None:
       return {
         'flags': platform_io_flags,
         'include_paths_relative_to_dir': DIR_OF_THIS_SCRIPT,
         'override_filename': filename
       }
+    project_root = ProjectRoot( filename )
+    if project_root is not None:
+        flags.append( '-I' +  p.dirname( filename ))
+        include_dirs = [ 'src', 'include', 'src/include' ]
+        for include_dir in include_dirs:
+          if p.exists(p.join(project_root, include_dir)):
+            flags.append( '-I' + p.join(project_root, include_dir))
     if not database:
       return {
         'flags': flags,

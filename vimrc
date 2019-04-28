@@ -1,22 +1,5 @@
 set nocompatible              " be iMproved, required
-set shortmess=atI
 set backspace=indent,eol,start
-" ignore python 3.7 imp module is deprecated warning
-if has('python3')
-  silent! python3 1
-endif
-
-" tvim default configure
-let g:tvim_powerline_fonts=0
-let g:tvim_italic=0
-let g:tvim_features=[]
-let g:tvim_all_features=0
-let g:tvim_change_cursor=0
-
-" load user config
-if !empty(glob('~/.vim/config.vim'))
-    source ~/.vim/config.vim
-endif
 
 " vim-plug config A minimalist Vim plugin manager.
 " auto install vim-plug
@@ -31,79 +14,58 @@ Plug 'ascenator/L9', {'name': 'newL9'}
 Plug 'scrooloose/nerdtree', {'on': ['NERDTreeToggle', 'NERDTreeFind']}
 Plug 'jiangmiao/auto-pairs'
 Plug 'itchyny/lightline.vim'
-" colortheme
-Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'daviesjamie/vim-base16-lightline'
+Plug 'ryanoasis/vim-devicons'
 
-if count(g:tvim_features, 'ctrlp') || g:tvim_all_features
-    Plug 'Yggdroot/LeaderF', {'do': './install.sh', 'on': ['LeaderfFile', 'LeaderfBuffer', 'LeaderfFunction', 'LeaderfBufTag', 'LeaderfBufTagAll']}
-endif
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_WindowHeight = 0.3
 
-if count(g:tvim_features, 'lint') || g:tvim_all_features
-    Plug 'w0rp/ale'
-    let g:ale_fixers = {}
-    let g:ale_fixers.typescript = ['tslint']
-    let g:ale_fixers.javascript = ['eslint']
-endif
+" replace ale with vim-syntastic/syntastic later.
+Plug 'w0rp/ale'
+" disable lsp support this not necessary.
+let g:ale_disable_lsp = 1
 
-if count(g:tvim_features, 'git') || g:tvim_all_features
-    Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter'
-endif
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
-if count(g:tvim_features, 'markdown') || g:tvim_all_features
-    Plug 'godlygeek/tabular'
-    Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-    Plug 'kannokanno/previm', {'for': 'markdown'}
-endif
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'kannokanno/previm', {'for': 'markdown'}
 
-if count(g:tvim_features, 'python') || g:tvim_all_features
-    Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
-endif
+Plug 'tell-k/vim-autopep8', {'for': 'python', 'on': 'Autopep8'}
 
-if count(g:tvim_features, 'web') || g:tvim_all_features
-    Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango', 'vue']}
-    Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-    Plug 'posva/vim-vue', {'for': 'vue'}
-    Plug 'mxw/vim-jsx', {'for': 'jsx'}
-    Plug 'leafgarland/typescript-vim', {'for': ['tsx', 'typescript']}
-    Plug 'peitalin/vim-jsx-typescript', {'for': 'tsx'}
-    Plug 'tpope/vim-haml'
-endif
+Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'htmldjango', 'vue', 'javascript.jsx']}
+Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+Plug 'posva/vim-vue', {'for': 'vue'}
+Plug 'mxw/vim-jsx', {'for': 'jsx'}
+Plug 'leafgarland/typescript-vim', {'for': ['tsx', 'typescript']}
+Plug 'peitalin/vim-jsx-typescript', {'for': 'tsx'}
+Plug 'tpope/vim-haml'
 
-if count(g:tvim_features, 'go') || g:tvim_all_features
-    " for golang
-    Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
-    Plug 'fatih/vim-go', {'for': 'go'}
-    Plug 'cespare/vim-toml', {'for': 'toml'}
-endif
+" for golang
+Plug 'buoto/gotests-vim', {'for': 'go', 'on': 'GoTests'}   "auto generate unit testing
+Plug 'tomwei7/vim-go', {'for': 'go'}
+Plug 'cespare/vim-toml', {'for': 'toml'}
 
-if count(g:tvim_features, 'c-family') || g:tvim_all_features
-    Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
-    Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp']}
-    Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
-endif
+Plug 'richq/vim-cmake-completion', {'for': 'cmake'}
+Plug 'vim-scripts/DoxygenToolkit.vim', {'for': ['c', 'cpp']}
+Plug 'vim-scripts/a.vim', {'for': ['c', 'cpp']}
 
-if count(g:tvim_features, 'ultisnips') || g:tvim_all_features
-    " snippets
-    Plug 'honza/vim-snippets'
-    Plug 'SirVer/ultisnips'
-endif
+" snippets
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'romainl/Apprentice'
+Plug 'mhartington/oceanic-next'
 
-if count(g:tvim_features, 'ycm') || g:tvim_all_features
-    " YouCompleteMe
-    Plug 'Valloric/YouCompleteMe'
-    " YcmCompleter help
-    Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig'}
-endif
+" YouCompleteMe
+Plug 'Valloric/YouCompleteMe'
+" YcmCompleter help
+Plug 'rdnetto/YCM-Generator', {'branch': 'stable', 'on': 'YcmGenerateConfig'}
 
 " Initialize Plug system
 call plug#end()
 
-""" lightline{{{
-let g:lightline = {
-      \ 'colorscheme': 'darcula',
-      \ }
-"""}}}
 
 """ polyglot{{{
 let g:polyglot_disabled = ['vue', 'javascript', 'typescript', 'jsx', 'tsx']
@@ -112,17 +74,6 @@ let g:polyglot_disabled = ['vue', 'javascript', 'typescript', 'jsx', 'tsx']
 """ indentLine {{{
     let g:indentLine_fileTypeExclude = ['tex', 'markdown']
 """ }}}
-
-""" LeaderF {{{
-map <C-p> :LeaderfFile<CR>
-let g:Lf_WindowHeight = 0.30
-if g:tvim_powerline_fonts
-    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-else
-    let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
-end
-let g:Lf_StlColorscheme = 'one'
-"}}}
 
 """ ultisnips {{{
 if has_key(g:plugs, 'ultisnips')
@@ -143,30 +94,31 @@ endif
 "}}}
 
 """ ale {{{
-if has_key(g:plugs, 'ale') 
-    let g:ale_linters={
-                \   'python': ['flake8'],
-                \   'go': ['golint', 'go build'],
-                \   'c': [],
-                \   'cpp': [],
-                \   'proto': [],
-                \   'js': [],
-                \}
-    let g:ale_python_flake8_options="--ignore=E501"
-    let g:ale_lint_on_text_changed='never'
-    let g:ale_lint_on_enter=0
-    nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-    nmap <silent> <C-j> <Plug>(ale_next_wrap)
-endif
+let g:ale_fixers = {}
+let g:ale_fixers.typescript = ['tslint']
+let g:ale_fixers.javascript = ['eslint']
+let g:ale_linters={
+            \   'python': ['flake8'],
+            \   'go': ['golint', 'go build'],
+            \   'c': [],
+            \   'cpp': [],
+            \   'proto': [],
+            \   'js': [],
+            \}
+let g:ale_python_flake8_options="--ignore=E501,E201,E202,E111,E251,E121"
+let g:ale_lint_on_text_changed='never'
+let g:ale_lint_on_enter=0
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 "}}}
 
 """ YcmCompleter {{{
 let g:ycm_global_ycm_extra_conf='~/.vim/global_ycm_extra_conf.py'
-if !empty($VIRTUAL_ENV)
-    let g:ycm_python_binary_path='python'
-else
-    let g:ycm_python_binary_path='python3'
-endif
+"if !empty($VIRTUAL_ENV)
+"    let g:ycm_python_binary_path='python'
+"else
+"    let g:ycm_python_binary_path='python3'
+"endif
 let g:ycm_key_invoke_completion='<C-a>'
 let g:ycm_confirm_extra_conf=0
 let g:ycm_autoclose_preview_window_after_insertion=0
@@ -179,11 +131,13 @@ if !exists("g:ycm_gocode_binary_path")
     let g:ycm_gocode_binary_path='/Users/weicheng/.local/bin/gocode-mod'
 endif
 let g:ycm_godef_binary_path='/Users/weicheng/go/bin/godef'
+let g:ycm_enable_gopls = 1
+let g:ycm_gopls_binary_path = '/Users/weicheng/go/bin/gopls'
+let g:ycm_gopls_envs = {
+\   'http_proxy': 'http://127.0.0.1:1235',
+\   'https_proxy': 'http://127.0.0.1:1235',
+\ }
 nmap gd :YcmCompleter GoToDefinition <CR>
-"}}}
-
-""" tagbar {{{
-let g:tagbar_width=30
 "}}}
 
 """ vim-go {{{
@@ -212,19 +166,24 @@ let g:autopep8_disable_show_diff=1
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
 let g:NERDTreeIgnore = ['__pycache__', '\.pyc$[[file]]', '^bazel-*']
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
 "}}}
 
 """ previm {{{
 let g:previm_open_cmd = 'open -a Google\ Chrome'
 "}}}
 
+let g:lightline = {
+\   'colorscheme': 'oceanicnext',
+\   'component': {
+\       'filename': '%f'
+\   },
+\ }
+
 " highlight current line
 set cursorline
 " fast renderer
-set lazyredraw
-set ttyfast
+"set lazyredraw
+"set ttyfast
 " show line number
 set number
 " set indent
@@ -246,21 +205,8 @@ set fileencodings=utf-8,gb18030,gbk,gb2312,big5
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set maxmempattern=10240
 set wildmenu
-
-syntax enable
 set laststatus=2
 set t_Co=256
-set background=dark
-
-colorscheme dracula
-" UI config
-if has('gui_running')
-    " 清除macvim滚动条
-    set guifont=FuraMonoNerdFontCompleteM-Medium:h14
-    set guioptions-=gmrL
-endif
-filetype indent plugin on
-
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -277,9 +223,24 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+" UI config
+if has('gui_running')
+    " 清除macvim滚动条
+    set guifont=DroidSansMonoForPowerlineNerdFontC-:h14
+    set guioptions-=gmrL
+endif
+filetype indent plugin on
+
+syntax enable
+set background=dark
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+
+colorscheme OceanicNext
+
 
 " 解决有时候打开文件需要按 enter 的问题 http://vimhelp.appspot.com/options.txt.html#%27shortmess%27
-set shortmess=Ot
+set shortmess=atI
 " ignore venv and vendor
 set wildignore+=venv/**,vendor/**
 "set foldlevelstart=10
@@ -290,10 +251,8 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 "let mapleader=","
 map <Leader>v :set list!<CR>
-map <Leader>p :bp<CR>
-map <Leader>n :bn<CR>
 map <Leader>t :LeaderfBufTag<CR>
-map <Leader>f :LeaderfFunction<CR>
+map <Leader>c :noh<CR>
 
 " different indent
 autocmd Filetype html,htmldjango,css,ruby,javascript,json,yaml,vue,typescript,jsx,tsx,proto,javascript.jsx  setlocal ts=2 sts=2 sw=2
@@ -316,8 +275,12 @@ autocmd BufNewFile,BufRead .tern-project setf json
 autocmd BufNewFile,BufRead .tern-config setf json
 autocmd BufNewFile,BufRead global_ycm_extra_conf.py setlocal ts=2 sts=2 sw=2
 
+let g:vue_disable_pre_processors=1
+autocmd FileType vue syntax sync fromstart
+autocmd BufNewFile,BufRead *.vue setf vue
+
 " Change cursor shape between insert and normal mode in iTerm2.app
-if $TERM_PROGRAM =~ "iTerm" && !has('nvim') && g:tvim_change_cursor
+if $TERM_PROGRAM =~ "iTerm" && !has('nvim')
     let &t_SI="\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
     let &t_EI="\<Esc>]50;CursorShape=0\x7" " Block in normal mode
     let &t_SR="\<Esc>]50;CursorShape=2\x7"
