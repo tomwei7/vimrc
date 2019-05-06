@@ -142,7 +142,9 @@ if platform.system() != 'Windows':
 # 'flags' list of compilation flags. Notice that YCM itself uses that approach.
 compilation_database_folder = ''
 
-if p.exists( compilation_database_folder ):
+if p.exists( 'build/compile_commands.json' ):
+  database = ycm_core.CompilationDatabase( 'build' )
+elif p.exists( compilation_database_folder ):
   database = ycm_core.CompilationDatabase( compilation_database_folder )
 else:
   database = None
