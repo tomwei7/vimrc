@@ -20,6 +20,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 let g:Lf_ShortcutF = '<C-P>'
 let g:Lf_WindowHeight = 0.3
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+let g:Lf_StlColorscheme = 'one'
 
 " replace ale with vim-syntastic/syntastic later.
 Plug 'w0rp/ale'
@@ -57,6 +59,7 @@ Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'romainl/Apprentice'
 Plug 'mhartington/oceanic-next'
+Plug 'morhetz/gruvbox'
 
 " YouCompleteMe
 Plug 'Valloric/YouCompleteMe'
@@ -166,6 +169,7 @@ let g:autopep8_disable_show_diff=1
 map <C-n> :NERDTreeToggle<CR>
 command DFind :NERDTreeFind
 let g:NERDTreeIgnore = ['__pycache__', '\.pyc$[[file]]', '^bazel-*']
+let g:NERDTreeMinimalUI = 0
 "}}}
 
 """ previm {{{
@@ -173,7 +177,7 @@ let g:previm_open_cmd = 'open -a Google\ Chrome'
 "}}}
 
 let g:lightline = {
-\   'colorscheme': 'oceanicnext',
+\   'colorscheme': 'gruvbox',
 \   'component': {
 \       'filename': '%f'
 \   },
@@ -236,7 +240,7 @@ set background=dark
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
 
-colorscheme OceanicNext
+colorscheme gruvbox
 
 
 " 解决有时候打开文件需要按 enter 的问题 http://vimhelp.appspot.com/options.txt.html#%27shortmess%27
